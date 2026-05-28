@@ -117,7 +117,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 card.className = 'product-card';
                 card.innerHTML = `
                     <div class="product-img-wrapper">
-                        <img src="${product.image}" alt="${product.name}">
+                        <img src="${product.image}" alt="${product.name}" loading="lazy" decoding="async">
                     </div>
                     <div class="product-info">
                         <span class="cat-label">${product.category}</span>
@@ -139,7 +139,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Global reset filter function for empty state
     window.resetFilters = () => {
         currentCategory = 'All';
-        maxPrice = 300;
+        maxPrice = 1000;
         searchQuery = '';
         priceSort = 'default';
         
