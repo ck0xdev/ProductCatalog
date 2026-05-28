@@ -5,7 +5,7 @@ const products = [
         category: "Keychains",
         price: 60,
         originalPrice: 100,
-        image: "image/pink_lily.PNG",
+        image: "image/pink_lily.png",
         badge: "Keychain"
     },
     {
@@ -41,7 +41,7 @@ const products = [
         category: "Keychains",
         price: 60,
         originalPrice: 100,
-        image: "image/yellow_gerbera.PNG",
+        image: "image/yellow_gerbera.png",
         badge: "Keychain"
     },
     {
