@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beautiful Catalog</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <header>
+        <div class="logo">Catalog<span style="color: var(--accent)">.</span></div>
+        <div class="nav-links">
+            <a href="index.html" class="active-nav">Catalog</a>
+            <a href="contact.html">Contact</a>
+        </div>
+    </header>
+
+    <div class="container main-layout">
+        
+        <!-- Mobile Overlay -->
+        <div class="mobile-overlay" id="mobile-overlay" onclick="toggleFilters()"></div>
+
+        <!-- Sidebar Filters -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header mobile-only">
+                <h3>Filters</h3>
+                <button class="btn-icon" onclick="toggleFilters()">
+                    <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                </button>
+            </div>
+            
+            <div class="filter-section card">
+                <h3>Categories</h3>
+                <ul id="category-list">
+                    <li><a class="active-cat" data-category="All">All Products</a></li>
+                    <li><a data-category="Keychains">Keychains</a></li>
+                    <li><a data-category="Chenille Stems">Chenille Stems</a></li>
+                    <li><a data-category="Ribbons">Ribbons</a></li>
+                </ul>
+            </div>
+            
+            <div class="filter-section card" style="margin-top: 20px;">
+                <h3>Max Price</h3>
+                <div class="price-slider-container">
+                    <input type="range" id="price-slider" min="0" max="1000" step="10" value="1000" class="slider">
+                    <div class="price-labels">
+                        <span>₹0</span>
+                        <span id="price-value">₹1000</span>
+                    </div>
+                </div>
+
+                <h3 style="margin-top: 24px;">Sort By Price</h3>
+                <select id="price-sort" class="form-control" style="padding: 10px 14px; font-size: 14px; cursor: pointer;">
+                    <option value="default">Default</option>
+                    <option value="low-high">Price: Low to High</option>
+                    <option value="high-low">Price: High to Low</option>
+                </select>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="content-area">
+            
+            <!-- Top Filter Bar -->
+            <div class="top-filter-bar card">
+                <div class="search-wrap">
+                    <svg class="search-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                    <input type="text" id="search-input" placeholder="Search products...">
+                </div>
+                
+                <div class="layout-controls">
+                    <button class="btn btn-outline mobile-filter-btn" onclick="toggleFilters()">
+                        <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path></svg>
+                        Filters
+                    </button>
+                    <div style="display: flex; gap: 8px;">
+                        <button class="btn-icon" onclick="setLayout('grid-1')" title="1 Column" id="btn-grid-1">
+                            <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M4 4h16v16H4V4zm2 2v12h12V6H6z"/></svg>
+                        </button>
+                        <button class="btn-icon" onclick="setLayout('grid-2')" title="2 Columns" id="btn-grid-2">
+                            <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M3 3h8v18H3V3zm10 0h8v18h-8V3z"/></svg>
+                        </button>
+                        <button class="btn-icon active-layout" onclick="setLayout('grid-3')" title="3 Columns" id="btn-grid-3">
+                            <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M2 3h5v18H2V3zm7 0h6v18H9V3zm8 0h5v18h-5V3z"/></svg>
+                        </button>
+                        <button class="btn-icon" onclick="setLayout('list')" title="List View" id="btn-list">
+                            <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M3 4h18v4H3V4zm0 6h18v4H3v-4zm0 6h18v4H3v-4z"/></svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product Grid -->
+            <div class="product-grid" id="product-container">
+                <!-- Products will be injected here by JS -->
+            </div>
+            
+            <!-- Empty State -->
+            <div id="empty-state" class="hidden empty-state-container">
+                <svg width="64" height="64" fill="var(--border-color)" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
+                <p>No products found matching your filters.</p>
+                <button class="btn btn-primary" onclick="resetFilters()" style="margin-top: 15px;">Clear Filters</button>
+            </div>
+
+        </main>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/products.js"></script>
+    <script src="js/script.js"></script>
+</body>
+</html>
